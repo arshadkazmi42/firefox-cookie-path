@@ -13,17 +13,10 @@ const PATHS = {
 
 
 describe('tests firefox profiles', () => {
-  it('should return firefox profiles', () => {
-    try {
-      const profiles = firefoxProfiles();
-      const profile = _.find(profiles, (profile) => profile.Name === 'default');
-      expect(firefoxCookiePath()).to.equal(`${PATHS[process.platform]}/${profile.Path}`);
-    } catch (err) {
-      console.error('Please try running tests as non root user');
-
-      // Intentionally failing the test here
-      expect(err).true;
-    }
+  it('should return firefox profiles - run tests as non root user', () => {
+    const profiles = firefoxProfiles();
+    const profile = _.find(profiles, (profile) => profile.Name === 'default');
+    expect(firefoxCookiePath()).to.equal(path.join(PATHS[process.platform], profile.Path, 'cookies.sqlite'));
   });
   it('should return firefox profiles', () => {
     try {
