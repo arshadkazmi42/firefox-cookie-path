@@ -14,11 +14,11 @@ npm i firefox-cookie-path
 
 const firefoxCookiePath = require('firefox-cookie-path');
 
-const cookiePath = firefoxCookiePath('darwin');
+const cookiePath = firefoxCookiePath('default', 'darwin');
 console.log(cookiePath);
 
 // Output
-// /Users/arshad/Library/Application Support/Firefox/Profiles
+// /Users/arshad/Library/Application Support/Firefox/Profiles/w2ddsss2.default
 
 ```
 
