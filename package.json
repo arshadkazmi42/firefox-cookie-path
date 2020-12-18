@@ -1,6 +1,6 @@
 {
   "name": "firefox-cookie-path",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Get all firefox profiles - crossplatform",
   "main": "index.js",
   "scripts": {
