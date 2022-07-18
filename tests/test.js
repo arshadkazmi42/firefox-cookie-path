@@ -1,6 +1,8 @@
 const { expect } = require('chai');
 const path = require('path');
 const _ = require('lodash');
+const sinon = require('sinon');
+const Fs = require('fs');
 const firefoxProfiles = require('firefox-profiles');
 
 const firefoxCookiePath = require('../index');
@@ -12,8 +14,18 @@ const PATHS = {
 };
 
 
+const iniFile = '[Install4F96D1932A9F858E]\nDefault=oucn46hr.default-release\nLocked=1\n\n[Profile1]\n\
+  Name=default\nIsRelative=1\nPath=xlbm9r8f.default\nDefault=1\n\n[Profile0]\nName=default-release\nIsRelative=1\nPath=oucn46hr.default-release\n\n[General]\nStartWithLastProfile=1\nVersion=2';
+
+// Mocking Fs call of `firefoxProfiles` library
+sinon.stub(Fs, 'readFileSync').callsFake((args) => {
+  if (args.endsWith('profiles.ini')) {
+    return iniFile;
+  }
+});
+
 describe('tests firefox profiles', () => {
-  it('should return firefox profiles - run tests as non root user', () => {
+  it('should return firefox profiles', () => {
     const profiles = firefoxProfiles();
     const profile = _.find(profiles, (profile) => profile.Name === 'default');
     expect(firefoxCookiePath()).to.equal(path.join(PATHS[process.platform], profile.Path, 'cookies.sqlite'));
